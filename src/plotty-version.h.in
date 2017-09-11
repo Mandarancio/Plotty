@@ -1,0 +1,97 @@
+/* plotty-version.h.in
+ *
+ * Copyright (C) 2017 Martino Ferrari
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+#ifndef PLOTTY_VERSION_H
+#define PLOTTY_VERSION_H
+
+#if !defined(PLOTTY_INSIDE) && !defined(PLOTTY_COMPILATION)
+# error "Only <plotty.h> can be included directly."
+#endif
+
+/**
+ * SECTION:plottyversion
+ * @short_description: plotty version checking
+ *
+ * plotty provides macros to check the version of the library
+ * at compile-time
+ */
+
+/**
+ * PLOTTY_MAJOR_VERSION:
+ *
+ * plotty major version component (e.g. 1 if %PLOTTY_VERSION is 1.2.3)
+ */
+#define PLOTTY_MAJOR_VERSION (@MAJOR_VERSION@)
+
+/**
+ * PLOTTY_MINOR_VERSION:
+ *
+ * plotty minor version component (e.g. 2 if %PLOTTY_VERSION is 1.2.3)
+ */
+#define PLOTTY_MINOR_VERSION (@MINOR_VERSION@)
+
+/**
+ * PLOTTY_MICRO_VERSION:
+ *
+ * plotty micro version component (e.g. 3 if %PLOTTY_VERSION is 1.2.3)
+ */
+#define PLOTTY_MICRO_VERSION (@MICRO_VERSION@)
+
+/**
+ * PLOTTY_VERSION
+ *
+ * plotty version.
+ */
+#define PLOTTY_VERSION (@VERSION@)
+
+/**
+ * PLOTTY_VERSION_S:
+ *
+ * plotty version, encoded as a string, useful for printing and
+ * concatenation.
+ */
+#define PLOTTY_VERSION_S "@VERSION@"
+
+#define PLOTTY_ENCODE_VERSION(major,minor,micro) \
+        ((major) << 24 | (minor) << 16 | (micro) << 8)
+
+/**
+ * PLOTTY_VERSION_HEX:
+ *
+ * plotty version, encoded as an hexadecimal number, useful for
+ * integer comparisons.
+ */
+#define PLOTTY_VERSION_HEX \
+        (PLOTTY_ENCODE_VERSION (PLOTTY_MAJOR_VERSION, PLOTTY_MINOR_VERSION, PLOTTY_MICRO_VERSION))
+
+/**
+ * PLOTTY_CHECK_VERSION:
+ * @major: required major version
+ * @minor: required minor version
+ * @micro: required micro version
+ *
+ * Compile-time version checking. Evaluates to %TRUE if the version
+ * of plotty is greater than the required one.
+ */
+#define PLOTTY_CHECK_VERSION(major,minor,micro)   \
+        (PLOTTY_MAJOR_VERSION > (major) || \
+         (PLOTTY_MAJOR_VERSION == (major) && PLOTTY_MINOR_VERSION > (minor)) || \
+         (PLOTTY_MAJOR_VERSION == (major) && PLOTTY_MINOR_VERSION == (minor) && \
+          PLOTTY_MICRO_VERSION >= (micro)))
+
+#endif /* PLOTTY_VERSION_H */
