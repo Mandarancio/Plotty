@@ -22,6 +22,6 @@ int main(int argc, char** argv)
   f.plt.plot(x, gauss, GREEN, 1.5, LS_DOTS_KEY, PS_DIAMOND, "gauss");
   f.plt.legend();
 
-
+  f.plt.savepdf("ex_plot.pdf");
   return app->run(f);
 }

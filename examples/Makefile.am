@@ -3,7 +3,8 @@
 bin_PROGRAMS = \
 	test_fft \
 	test_plot \
-	test_img
+	test_img \
+	benchmark
 
 test_plot_SOURCES = test_plot.cxx
 
@@ -33,5 +34,15 @@ test_img_LDFLAGS = \
 	-lcairo `pkg-config --libs gtkmm-3.0` -lfftw3
 
 test_img_CXXFLAGS = \
+	-I/usr/include/eigen3/ `pkg-config --cflags gtkmm-3.0`\
+	$(NULL)
+
+benchmark_SOURCES = benchmark.cxx
+
+benchmark_LDFLAGS = \
+	-lplotty-0 -L../src/\
+	-lcairo `pkg-config --libs gtkmm-3.0` -lfftw3
+
+benchmark_CXXFLAGS = \
 	-I/usr/include/eigen3/ `pkg-config --cflags gtkmm-3.0`\
 	$(NULL)
