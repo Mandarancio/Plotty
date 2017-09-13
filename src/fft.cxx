@@ -7,7 +7,7 @@ Eigen::VectorXcd fft::fft(Eigen::VectorXd in)
   unsigned int n = in.size();
 
   Eigen::VectorXcd out(n);
-  fftw_plan p = fftw_plan_dft_r2hc_1d(n, &in(0), (fftw_complex*)&out(0),   FFTW_ESTIMATE);
+  fftw_plan p = fftw_plan_dft_r2c_1d(n, &in(0), (fftw_complex*)&out(0),   FFTW_ESTIMATE);
   fftw_execute(p);
   fftw_destroy_plan(p);
   return out/n;
@@ -32,13 +32,11 @@ Eigen::MatrixXcd fft::fft2(Eigen::MatrixXd data)
   const int n1 = data.cols();
   const int n = n0*n1;
   Eigen::MatrixXcd out(n0, n1);
-
-  fftw_plan p = fftw_plan_dft_r2c_2d(n0, n1, &data(0), (fftw_complex*) &out(0),   FFTW_ESTIMATE);
+  fftw_plan p = fftw_plan_dft_r2c_2d(n1, n0, &data(0), (fftw_complex*) &out(0),   FFTW_ESTIMATE);
   fftw_execute(p);
-
   fftw_destroy_plan(p);
 
-  return out/n;
+  return out;
 }
 
 Eigen::MatrixXd fft::ifft2(Eigen::MatrixXcd data)
@@ -48,10 +46,8 @@ Eigen::MatrixXd fft::ifft2(Eigen::MatrixXcd data)
   unsigned int n = n0*n1;
   Eigen::MatrixXd out(n0, n1);
 
-  fftw_plan p = fftw_plan_dft_c2r_2d(n0, n1, (fftw_complex*) &data(0), &out(0),   FFTW_ESTIMATE);
+  fftw_plan p = fftw_plan_dft_c2r_2d(n1, n0, (fftw_complex*) &data(0), &out(0),   FFTW_ESTIMATE);
   fftw_execute(p);
-
-
   fftw_destroy_plan(p);
 
   return out;

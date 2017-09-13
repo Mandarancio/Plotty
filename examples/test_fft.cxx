@@ -30,7 +30,7 @@ int main(int argc, char** argv)
 
   Figure f2("Figure 2");
 
-  f2.plt.plot(m::abs(X),BLUE, 1.5, LS_CONTINUOS_KEY, PS_NONE, "FFT");
+  f2.plt.plot(m::abs(X.block(0,0,50,1)),BLUE, 1.5, LS_CONTINUOS_KEY, PS_NONE, "FFT");
   f2.plt.legend();
   f2.show();
 

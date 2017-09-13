@@ -6,14 +6,10 @@ using namespace img;
 
 Eigen::MatrixXd img::load(std::string name)
 {
+
   CImg<double> image(name.c_str());
+  double * d = image.data();
   int w = image.width();
   int h = image.height();
-  Eigen::MatrixXd img(w,h);
-  for (int i=0;i<w*h;i++)
-  {
-      img(i) = image[i]/255.;
-  }
-
-  return img;
+  return Eigen::Map<Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic> > (d,w,h);
 }
