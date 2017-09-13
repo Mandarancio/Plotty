@@ -2,82 +2,43 @@
 #include <fftw3.h>
 
 
-Eigen::VectorXcd fft::fft(Eigen::VectorXd data)
+Eigen::VectorXcd fft::fft(Eigen::VectorXd in)
 {
-  unsigned int n = data.size();
-  fftw_complex * out = (fftw_complex *)fftw_malloc(sizeof(fftw_complex)*n);
-  fftw_complex * in = (fftw_complex *)fftw_malloc(sizeof(fftw_complex)*n);
-  for (unsigned int i=0;i<n;i++)
-  {
-    in[i][0] = data(i);
-  }
-  fftw_plan p = fftw_plan_dft_1d(n, in, out, FFTW_FORWARD, FFTW_ESTIMATE);
-  fftw_execute(p);
-  Eigen::VectorXcd output(n);
-  for (unsigned int i=0;i<n;i++)
-  {
-    output(i) = std::complex<float>(out[i][0]/n, out[i][1]/n);
-  }
+  unsigned int n = in.size();
 
+  Eigen::VectorXcd out(n);
+  fftw_plan p = fftw_plan_dft_r2hc_1d(n, &in(0), (fftw_complex*)&out(0),   FFTW_ESTIMATE);
+  fftw_execute(p);
   fftw_destroy_plan(p);
-  fftw_free(in);
-  fftw_free(out);
-  return output;
+  return out/n;
 }
 
-Eigen::VectorXd fft::ifft(Eigen::VectorXcd data)
+Eigen::VectorXd fft::ifft(Eigen::VectorXcd in)
 {
-  unsigned int n = data.size();
-  fftw_complex * out = (fftw_complex *)fftw_malloc(sizeof(fftw_complex)*n);
-  fftw_complex * in = (fftw_complex *)fftw_malloc(sizeof(fftw_complex)*n);
-  for (unsigned int i=0;i<n;i++)
-  {
-    in[i][0] = data(i).real();
-    in[i][1] = data(i).imag();
-
-  }
-
-  fftw_plan p = fftw_plan_dft_1d(n, in, out, FFTW_BACKWARD, FFTW_ESTIMATE);
+  unsigned int n = in.size();
+  Eigen::VectorXd out(n);
+  fftw_plan p = fftw_plan_dft_c2r_1d(n, (fftw_complex*)&in(0), &out(0),  FFTW_ESTIMATE);
   fftw_execute(p);
 
-  Eigen::VectorXd output(n);
-  for (unsigned int i=0;i<n;i++)
-  {
-    output(i) = out[i][0];
-  }
-
   fftw_destroy_plan(p);
-  fftw_free(in);
-  fftw_free(out);
-  return output;
+
+  return out;
 }
 
 
 Eigen::MatrixXcd fft::fft2(Eigen::MatrixXd data)
 {
-  unsigned int n0 = data.rows();
-  unsigned int n1 = data.cols();
-  unsigned int n = n0*n1;
-  fftw_complex * out = (fftw_complex *)fftw_malloc(sizeof(fftw_complex)*n);
-  fftw_complex * in = (fftw_complex *)fftw_malloc(sizeof(fftw_complex)*n);
-  for (unsigned int i=0;i<n;i++)
-  {
-    in[i][0] = data(i);
-    in[i][1] = 0;
-  }
-  fftw_plan p = fftw_plan_dft_2d(n0, n1, in, out, FFTW_FORWARD, FFTW_ESTIMATE);
+  const int n0 = data.rows();
+  const int n1 = data.cols();
+  const int n = n0*n1;
+  Eigen::MatrixXcd out(n0, n1);
+
+  fftw_plan p = fftw_plan_dft_r2c_2d(n0, n1, &data(0), (fftw_complex*) &out(0),   FFTW_ESTIMATE);
   fftw_execute(p);
 
-  Eigen::MatrixXcd output(n0, n1);
-  for (unsigned int i=0;i<n;i++)
-  {
-    output(i) =  std::complex<float>(out[i][0]/n, out[i][1]/n);
-  }
-
   fftw_destroy_plan(p);
-  fftw_free(in);
-  fftw_free(out);
-  return output;
+
+  return out/n;
 }
 
 Eigen::MatrixXd fft::ifft2(Eigen::MatrixXcd data)
@@ -85,24 +46,13 @@ Eigen::MatrixXd fft::ifft2(Eigen::MatrixXcd data)
   unsigned int n0 = data.rows();
   unsigned int n1 = data.cols();
   unsigned int n = n0*n1;
-  fftw_complex * out = (fftw_complex *)fftw_malloc(sizeof(fftw_complex)*n);
-  fftw_complex * in = (fftw_complex *)fftw_malloc(sizeof(fftw_complex)*n);
-  for (unsigned int i=0;i<n;i++)
-  {
-    in[i][0] = data(i).real();
-    in[i][1] = data(i).imag();
-  }
-  fftw_plan p = fftw_plan_dft_2d(n0, n1, in, out, FFTW_BACKWARD, FFTW_ESTIMATE);
+  Eigen::MatrixXd out(n0, n1);
+
+  fftw_plan p = fftw_plan_dft_c2r_2d(n0, n1, (fftw_complex*) &data(0), &out(0),   FFTW_ESTIMATE);
   fftw_execute(p);
 
-  Eigen::MatrixXd output(n0, n1);
-  for (unsigned int i=0;i<n;i++)
-  {
-    output(i) =  out[i][0];
-  }
 
   fftw_destroy_plan(p);
-  fftw_free(in);
-  fftw_free(out);
-  return output;
-}
+
+  return out;
+} 
