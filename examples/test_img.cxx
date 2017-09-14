@@ -1,7 +1,7 @@
-#include "../src/plotty.h"
-#include "../src/math.h"
-#include "../src/images.h"
-#include "../src/fft.h"
+#include "plotty.h"
+#include "math.h"
+#include "images.h"
+#include "fft.h"
 #include <Eigen/Dense>
 #include <gtkmm/application.h>
 

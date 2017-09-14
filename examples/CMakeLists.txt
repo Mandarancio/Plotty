@@ -1,13 +1,34 @@
 cmake_minimum_required (VERSION 2.8.11)
 
 add_executable(ex_plot test_plot.cxx)
-include_directories(../src/)
+add_executable(ex_fft test_fft.cxx)
+add_executable(ex_img test_img.cxx)
+
+include_directories(../src/ /usr/include/eigen3/)
 link_directories(../src/)
 
-target_link_libraries (ex_plot LINK_PUBLIC  cairo fftw3 plotty ${GTKMM_LIBRARIES})
-target_include_directories(ex_plot PUBLIC /usr/include/eigen3/)
+target_link_libraries (ex_plot cairo fftw3 plotty ${GTKMM_LIBRARIES})
+target_link_libraries (ex_fft cairo fftw3 plotty ${GTKMM_LIBRARIES})
+target_link_libraries (ex_img cairo fftw3 plotty ${GTKMM_LIBRARIES})
+
 
 set_target_properties( ex_plot
-PROPERTIES
-RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
+    PROPERTIES
+    ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
+    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
+)
+
+set_target_properties( ex_fft
+    PROPERTIES
+    ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
+    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
+)
+
+set_target_properties( ex_img
+    PROPERTIES
+    ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
+    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
 )

@@ -16,7 +16,8 @@ include_directories(${GTKMM_INCLUDE_DIRS})
 # the project's entire directory structure.
 add_subdirectory (src)
 add_subdirectory (examples)
+add_subdirectory (data)
 
 
-
-
+set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wall")
+set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -Wall")

@@ -1,13 +1,11 @@
 
-#include "../src/plotty.h"
-#include "../src/math.h"
-#include "../src/fft.h"
-#include <Eigen/Dense>
+#include "plotty.h"
+#include "math.h"
+#include "fft.h"
+#include <Eigen/Core>
 #include <gtkmm/application.h>
 #include <gtkmm/window.h>
 #include <iostream>
-#include <cmath>
-#include <fftw3.h>
 
 
 int main(int argc, char** argv)
