@@ -1,5 +1,5 @@
-#include "../src/plotty.h"
-#include "../src/math.h"
+#include "plotty.h"
+#include "math.h"
 #include <Eigen/Dense>
 #include <gtkmm/application.h>
 
@@ -22,6 +22,5 @@ int main(int argc, char** argv)
   f.plt.plot(x, gauss, GREEN, 1.5, LS_DOTS_KEY, PS_DIAMOND, "gauss");
   f.plt.legend();
 
-  f.plt.savepng("ex_plot.png");
   return app->run(f);
 }

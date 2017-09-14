@@ -18,11 +18,12 @@ int main(int argc, char** argv)
   Figure f1("Figure 1");
 
 
-  Eigen::VectorXd t = m::linspace(0, 2, 101);
+  Eigen::VectorXd t = m::linspace(0, 2, 100);
   Eigen::VectorXd x = m::sin(m::pi*4*t);
   Eigen::VectorXcd X = fft::fft(x);
+  std::cout<<x.size()<<" -> "<<X.size()<<std::endl;
 
-  Eigen::VectorXd y = m::real(fft::ifft(X));
+  Eigen::VectorXd y = fft::ifft(X, x.size());
 
   f1.plt.plot(t, y, RED, 1.5, LS_CONTINUOS_KEY, PS_NONE, "reconstruction");
   f1.plt.plot(t, x, BLUE, 1.5, LS_DOTS_KEY, PS_NONE, "Original");

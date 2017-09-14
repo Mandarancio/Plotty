@@ -20,7 +20,5 @@ int main(int argc, char** argv)
   f1.plt.imshow(i);
   f2.plt.imshow(m::log(m::abs(I)));
   f2.show();
-  f1.plt.savepng("imgage.png");
-  f2.plt.savepng("fft2.png");
   return app->run(f1);
 }

@@ -5,7 +5,7 @@
 
 namespace fft{
 Eigen::VectorXcd fft(Eigen::VectorXd data);
-Eigen::VectorXd ifft(Eigen::VectorXcd data);
+Eigen::VectorXd ifft(Eigen::VectorXcd data, unsigned int k = 0);
 
 // TODO Implement 2D fft and ifft
 Eigen::MatrixXcd fft2(Eigen::MatrixXd data);

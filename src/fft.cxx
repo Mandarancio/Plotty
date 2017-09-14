@@ -15,9 +15,10 @@ Eigen::VectorXcd fft::fft(Eigen::VectorXd in)
   return out/n;
 }
 
-Eigen::VectorXd fft::ifft(Eigen::VectorXcd in)
+Eigen::VectorXd fft::ifft(Eigen::VectorXcd in, unsigned int k)
 {
-  unsigned int n = ((in.size())*2-1);
+
+  unsigned int n = k>0 ? k : ((in.size())*2-1);
   Eigen::VectorXd out(n);
   fftw_plan p = fftw_plan_dft_c2r_1d(n, (fftw_complex*)&in(0), &out(0), FFTW_ESTIMATE);
   fftw_execute(p);
