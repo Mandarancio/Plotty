@@ -13,7 +13,13 @@ Current fetures includes:
  - FFT/IFFT and FFT2/IFFT implementation using FFTW3 library
  - Support of many image formats using CImg library
 
-
+## Build the library
+To build the library simply type:
+```
+cmake .
+make
+```
+The dependencies are: gtkmm, cairomm, eigen, fftw, cimg.
 
 ## Examples
 
