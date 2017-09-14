@@ -26,6 +26,7 @@ namespace m{
 
   /* Eigen::MatrixXd abs(Eigen::MatrixXd x); */
   Eigen::MatrixXd abs(Eigen::MatrixXcd x);
-
+  Eigen::MatrixXd real(Eigen::MatrixXcd x);
+  Eigen::MatrixXd imag(Eigen::MatrixXcd x);
 };
 #endif

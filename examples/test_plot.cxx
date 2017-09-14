@@ -13,15 +13,15 @@ int main(int argc, char** argv)
   Figure f;
 
 
-  Eigen::VectorXd x = m::linspace(0, 1, 100);
+  Eigen::VectorXd x = m::linspace(0, 1, 50);
   Eigen::VectorXd gauss = m::exp(-(m::pow(x,2)));
-  Eigen::VectorXd sinc  = m::abs(m::sin(m::pi*2*x).cwiseProduct((m::pi*2*x).cwiseInverse()));
-  Eigen::VectorXd lapl  = m::exp(-x.cwiseAbs()*2);
-  f.plt.plot(x, sinc, BLUE, 1.5, LS_CONTINUOS_KEY, PS_NONE, "sinc");
+  Eigen::VectorXd sinc  = m::abs(m::sin(m::pi*4*x).cwiseProduct((m::pi*4*x).cwiseInverse()));
+  Eigen::VectorXd lapl  = m::exp(-x.cwiseAbs()*4);
+  f.plt.plot(x, sinc, BLUE, 1.5, LS_CONTINUOS_KEY, PS_CROSS, "sinc");
   f.plt.plot(x, lapl, RED, 1.5, LS_DASH_KEY, PS_DOT, "lapl");
   f.plt.plot(x, gauss, GREEN, 1.5, LS_DOTS_KEY, PS_DIAMOND, "gauss");
   f.plt.legend();
 
-  f.plt.savepdf("ex_plot.pdf");
+  f.plt.savepng("ex_plot.png");
   return app->run(f);
 }

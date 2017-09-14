@@ -101,6 +101,16 @@ Eigen::MatrixXd m::abs(Eigen::MatrixXcd x)
   return x.cwiseAbs();
 }
 
+Eigen::MatrixXd m::real(Eigen::MatrixXcd x)
+{
+  return x.real();
+}
+
+Eigen::MatrixXd m::imag(Eigen::MatrixXcd x)
+{
+  return x.imag();
+}
+
 double m::mean(Eigen::MatrixXd x)
 {
   return x.mean();

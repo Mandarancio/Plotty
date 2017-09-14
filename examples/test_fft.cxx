@@ -18,11 +18,11 @@ int main(int argc, char** argv)
   Figure f1("Figure 1");
 
 
-  Eigen::VectorXd t = m::linspace(0, 2, 100);
+  Eigen::VectorXd t = m::linspace(0, 2, 101);
   Eigen::VectorXd x = m::sin(m::pi*4*t);
   Eigen::VectorXcd X = fft::fft(x);
 
-  Eigen::VectorXd y = fft::ifft(X);
+  Eigen::VectorXd y = m::real(fft::ifft(X));
 
   f1.plt.plot(t, y, RED, 1.5, LS_CONTINUOS_KEY, PS_NONE, "reconstruction");
   f1.plt.plot(t, x, BLUE, 1.5, LS_DOTS_KEY, PS_NONE, "Original");
@@ -30,7 +30,7 @@ int main(int argc, char** argv)
 
   Figure f2("Figure 2");
 
-  f2.plt.plot(m::abs(X.block(0,0,50,1)),BLUE, 1.5, LS_CONTINUOS_KEY, PS_NONE, "FFT");
+  f2.plt.plot(m::abs(X),BLUE, 1.5, LS_CONTINUOS_KEY, PS_NONE, "FFT");
   f2.plt.legend();
   f2.show();
 

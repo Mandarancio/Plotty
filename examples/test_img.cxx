@@ -17,11 +17,10 @@ int main(int argc, char** argv)
 
   Eigen::MatrixXd i = (img::load("../data/test.gif"));
   Eigen::MatrixXcd I = fft::fft2(i);
-  std::cout<<I<<std::endl;
   f1.plt.imshow(i);
-  f2.plt.imshow(m::log(m::abs(I.block(0,0,128,128).array()+0.001)));
+  f2.plt.imshow(m::log(m::abs(I)));
   f2.show();
-  f1.plt.savepdf("imgage.pdf");
-  f2.plt.savepdf("fft2.pdf");
+  f1.plt.savepng("imgage.png");
+  f2.plt.savepng("fft2.png");
   return app->run(f1);
 }

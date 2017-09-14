@@ -5,7 +5,7 @@
 #include <string>
 
 namespace img{
-  Eigen::MatrixXd load(std::string path);
+    Eigen::MatrixXd load(std::string path);
 };
 
 #endif
