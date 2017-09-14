@@ -52,12 +52,15 @@ Few more examples are located in the folder examples of the project.
 ## Screenshots
 
 A simple plot:
+
 ![Simple plot](docs/ex_plot.png)
 
 2D Image:
+
 ![Image](docs/imgage.png)
 
 Magnetude of the 2D fft of the image:
+
 ![FFT2](docs/fft2.png)
 
 
